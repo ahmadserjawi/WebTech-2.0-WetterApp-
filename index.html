@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wetter-App | WebTech 2</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <header class="app-header">
+      <h1>🌤️ Wetter-App</h1>
+      <p class="subtitle">WebTech 2 Projekt</p>
+    </header>
+
+    <!-- Sucheingabe -->
+    <form id="search-form" class="search-form">
+      <input
+        type="text"
+        id="city-input"
+        placeholder="Stadt eingeben (z. B. Hagen)"
+        autocomplete="off"
+        required
+      >
+      <button type="submit" id="search-button">Suchen</button>
+    </form>
+
+    <!-- Favoriten (localStorage) -->
+    <section class="favorites-section">
+      <div class="favorites-header">
+        <h3>⭐ Favoriten</h3>
+        <button id="add-favorite-button" class="small-button" title="Aktuelle Stadt merken">+ Merken</button>
+      </div>
+      <div id="favorites-list" class="favorites-list">
+        <p id="no-favorites-text" class="no-favorites-text">Noch keine Favoriten gespeichert.</p>
+      </div>
+    </section>
+
+    <!-- Ladeanzeige -->
+    <div id="loading" class="loading hidden">
+      <p>Lade Wetterdaten...</p>
+    </div>
+
+    <!-- Fehleranzeige -->
+    <div id="error-message" class="error-message hidden">
+      <p id="error-text"></p>
+    </div>
+
+    <!-- Wetter-Ergebnis -->
+    <section id="weather-result" class="weather-card hidden">
+      <h2 id="city-name"></h2>
+      <img id="weather-icon" src="" alt="Wettericon">
+      <p id="temperature" class="temperature"></p>
+      <p id="description" class="description"></p>
+      <div class="details">
+        <span id="feels-like"></span>
+        <span id="humidity"></span>
+      </div>
+    </section>
+  </div>
+
+  <footer class="app-footer">
+    <p>Projekt von Ahmad, Cheyenne & Dilan &mdash; Modul WebTech 2</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
