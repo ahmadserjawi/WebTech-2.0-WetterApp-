@@ -177,7 +177,3 @@ CORS-/Fetch-Probleme zu vermeiden).
 4. Branch: `main`, Ordner: `/ (root)` auswählen, dann **Save**
 5. Nach 1–2 Minuten ist die Seite live unter:
    `https://<username>.github.io/<repo-name>/`
-
-## Live-Demo
-
-🔗 [Link zur gehosteten Version hier einfügen, nach Deployment via GitHub Pages]
