@@ -4,64 +4,132 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wetter-App | WebTech 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="theme-default">
+
+  <!-- Dekorative Ebene für den wetterabhängigen Hintergrund -->
+  <div class="backdrop" aria-hidden="true">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+  </div>
 
   <div class="app-container">
+
     <header class="app-header">
-      <h1>🌤️ Wetter-App</h1>
+      <h1>Wetter</h1>
       <p class="subtitle">WebTech 2 Projekt</p>
     </header>
 
-    <!-- Sucheingabe -->
-    <form id="search-form" class="search-form">
-      <input
-        type="text"
-        id="city-input"
-        placeholder="Stadt eingeben (z. B. Hagen)"
-        autocomplete="off"
-        required
-      >
+    <!-- Sucheingabe mit Autovervollständigung -->
+    <form id="search-form" class="search-form" autocomplete="off">
+      <div class="search-field">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input
+          type="text"
+          id="city-input"
+          placeholder="Stadt suchen …"
+          autocomplete="off"
+          aria-label="Stadt eingeben"
+          required
+        >
+        <!-- Vorschläge der Smart Search -->
+        <div id="suggestions" class="suggestions hidden" role="listbox"></div>
+      </div>
       <button type="submit" id="search-button">Suchen</button>
     </form>
 
-    <!-- Favoriten (localStorage) -->
-    <section class="favorites-section">
-      <div class="favorites-header">
-        <h3>⭐ Favoriten</h3>
-        <button id="add-favorite-button" class="small-button" title="Aktuelle Stadt merken">+ Merken</button>
-      </div>
-      <div id="favorites-list" class="favorites-list">
-        <p id="no-favorites-text" class="no-favorites-text">Noch keine Favoriten gespeichert.</p>
-      </div>
-    </section>
+    <!-- Zusatzaktionen: Standort & Einheit -->
+    <div class="actions">
+      <button id="location-button" class="action-button" type="button"
+              title="Wetter für meinen Standort">
+        <span aria-hidden="true">📍</span> Mein Standort
+      </button>
+      <button id="unit-toggle" class="action-button unit-button" type="button"
+              title="Einheit umschalten (°C / °F)">°C</button>
+    </div>
 
     <!-- Ladeanzeige -->
     <div id="loading" class="loading hidden">
-      <p>Lade Wetterdaten...</p>
+      <span class="spinner" aria-hidden="true"></span>
+      <p>Lade Wetterdaten …</p>
     </div>
 
     <!-- Fehleranzeige -->
-    <div id="error-message" class="error-message hidden">
+    <div id="error-message" class="error-message hidden" role="alert">
       <p id="error-text"></p>
+      <button id="retry-button" class="retry-button hidden" type="button">
+        Erneut versuchen
+      </button>
     </div>
 
     <!-- Wetter-Ergebnis -->
     <section id="weather-result" class="weather-card hidden">
-      <h2 id="city-name"></h2>
-      <img id="weather-icon" src="" alt="Wettericon">
-      <p id="temperature" class="temperature"></p>
-      <p id="description" class="description"></p>
+      <div class="weather-top">
+        <div class="weather-place">
+          <h2 id="city-name"></h2>
+          <p id="description" class="description"></p>
+        </div>
+        <button id="add-favorite-button" class="fav-button" type="button" title="Stadt merken">
+          ☆ Merken
+        </button>
+      </div>
+
+      <div class="weather-main">
+        <img id="weather-icon" src="" alt="Wettericon">
+        <p id="temperature" class="temperature"></p>
+      </div>
+
       <div class="details">
-        <span id="feels-like"></span>
-        <span id="humidity"></span>
+        <div class="detail">
+          <span class="detail-label">Gefühlt</span>
+          <span id="feels-like" class="detail-value"></span>
+        </div>
+        <div class="detail">
+          <span class="detail-label">Luftfeuchte</span>
+          <span id="humidity" class="detail-value"></span>
+        </div>
+        <div class="detail">
+          <span class="detail-label">Wind</span>
+          <span id="wind" class="detail-value"></span>
+        </div>
       </div>
     </section>
+
+    <!-- 5-Tage-Vorhersage -->
+    <section id="forecast-section" class="panel forecast-section hidden">
+      <div class="panel-header">
+        <h3>📅 5-Tage-Vorhersage</h3>
+      </div>
+      <div id="forecast-list" class="forecast-list"></div>
+    </section>
+
+    <!-- Favoriten (localStorage) -->
+    <section class="panel favorites-section">
+      <div class="panel-header">
+        <h3>⭐ Favoriten</h3>
+      </div>
+      <div id="favorites-list" class="favorites-list">
+        <p id="no-favorites-text" class="empty-text">Noch keine Favoriten gespeichert.</p>
+      </div>
+    </section>
+
+    <!-- Suchverlauf (localStorage) -->
+    <section id="history-section" class="panel history-section hidden">
+      <div class="panel-header">
+        <h3>🕘 Letzte Suchen</h3>
+        <button id="clear-history-button" class="text-button" type="button">Leeren</button>
+      </div>
+      <div id="history-list" class="history-list"></div>
+    </section>
+
   </div>
 
   <footer class="app-footer">
-    <p>Projekt von Ahmad, Cheyenne & Dilan &mdash; Modul WebTech 2</p>
+    <p>Projekt von Ahmad, Cheyenne &amp; Dilan &mdash; Modul WebTech 2</p>
   </footer>
 
   <script src="script.js"></script>
