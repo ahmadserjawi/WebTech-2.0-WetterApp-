@@ -62,12 +62,25 @@ Wetterdaten über die OpenWeatherMap Current Weather Data API abruft.
 ```
 ├── index.html      # Grundstruktur der Seite
 ├── style.css       # Layout, Design & Responsive Anpassungen
-├── script.js       # JS-Logik (App, UIController, WeatherAPI,
-│                   #           StorageManager, SmartSearch, ThemeManager)
+├── script.js       # JS-Logik: 9 Klassen (App, UIController, WeatherAPI,
+│                   #   StorageManager, SmartSearch, ThemeManager,
+│                   #   LocationService)
+├── UML.md          # UML-Klassendiagramm (Mermaid, rendert auf GitHub)
+├── uml-diagramm.png # UML als Bild (für Präsentation/Abgabe)
+├── uml-diagramm.svg # UML als Vektorgrafik
 └── README.md       # Diese Datei
 ```
 
 ## Klassenübersicht
+
+Jede Klasse liegt in einer eigenen Datei im Ordner `js/` und ist bewusst
+kurz gehalten (rund 70–260 Zeilen), damit der Code übersichtlich bleibt
+und die Aufgaben klar getrennt sind. `script.js` selbst enthält nur noch
+den Startaufruf.
+
+Ein vollständiges **UML-Klassendiagramm** (inklusive Sequenzdiagramm für
+den Suchablauf) liegt in [`UML.md`](UML.md) sowie als Bild in
+`uml-diagramm.png` / `uml-diagramm.svg`.
 
 | Klasse | Aufgabe |
 |--------|---------|
@@ -76,7 +89,9 @@ Wetterdaten über die OpenWeatherMap Current Weather Data API abruft.
 | `StorageManager` | Kapselt `localStorage`: letzte Stadt, Favoriten, Suchverlauf, gewählte Einheit |
 | `ThemeManager` | Setzt den wetterabhängigen Hintergrund (inkl. Tag/Nacht) |
 | `SmartSearch` | Autovervollständigung mit Debouncing, Zwischenspeicher und Tastatursteuerung |
-| `UIController` | Alle DOM-Manipulationen (Anzeige, Fehler, Laden, Listen) |
+| `WeatherView` | DOM-Anzeige des aktuellen Wetters (Karte, Laden, Fehler, Einheiten, Buttons) |
+| `ListView` | DOM-Anzeige der drei Listen (Favoriten, Verlauf, 5-Tage-Vorhersage) |
+| `UIController` | Fasst `WeatherView` und `ListView` zu einer Schnittstelle für `App` zusammen |
 | `App` | Verbindet alle Klassen und steuert den Ablauf |
 
 ## Hinweis zur Standortabfrage
@@ -177,3 +192,7 @@ CORS-/Fetch-Probleme zu vermeiden).
 4. Branch: `main`, Ordner: `/ (root)` auswählen, dann **Save**
 5. Nach 1–2 Minuten ist die Seite live unter:
    `https://<username>.github.io/<repo-name>/`
+
+## Live-Demo
+
+🔗 [Link zur gehosteten Version hier einfügen, nach Deployment via GitHub Pages]
